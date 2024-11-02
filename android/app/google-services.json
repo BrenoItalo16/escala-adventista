@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "386196356784",
+    "project_id": "escala-adventista",
+    "storage_bucket": "escala-adventista.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:386196356784:android:8162a6437e315b3be44575",
+        "android_client_info": {
+          "package_name": "com.brenoitalo.escalaadventista.escala_adventista"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCJ7yXcbqENL2XM0iJAfyCWpavKJ0Y_FAo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
