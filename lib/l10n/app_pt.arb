@@ -1,0 +1,8 @@
+{
+    "language": "português",
+    "helloworld": "Olá Mundo",
+    "title": "Escala Adventista",
+    "@helloworld": {
+        "description": "Olá, esta é a descrição de olá mundo."
+    }
+}

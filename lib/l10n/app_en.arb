@@ -1,0 +1,8 @@
+{
+    "language": "english",
+    "helloworld": "Hello World",
+    "title": "Adventist Scale",
+    "@helloworld": {
+        "description": "Hello, this is the hello world description."
+    }
+}
