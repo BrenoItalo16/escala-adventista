@@ -12,6 +12,11 @@ import 'features/auth/presentation/bloc/auth_bloc.dart';
 final sl = GetIt.instance;
 
 Future<void> init() async {
+  // Reset GetIt instance if it's already initialized
+  if (sl.isRegistered<AuthBloc>()) {
+    await sl.reset();
+  }
+  
   // Features - Auth
   // Bloc
   sl.registerFactory(

@@ -1,3 +1,4 @@
+import 'package:design_system/design_system.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
@@ -9,7 +10,8 @@ class SplashPage extends StatefulWidget {
   State<SplashPage> createState() => _SplashPageState();
 }
 
-class _SplashPageState extends State<SplashPage> with SingleTickerProviderStateMixin {
+class _SplashPageState extends State<SplashPage>
+    with SingleTickerProviderStateMixin {
   late AnimationController _controller;
   late Animation<double> _fadeAnimation;
 
@@ -17,14 +19,14 @@ class _SplashPageState extends State<SplashPage> with SingleTickerProviderStateM
   void initState() {
     super.initState();
     debugPrint('SplashPage - initState');
-    
+
     _controller = AnimationController(
       duration: const Duration(milliseconds: 1000),
       vsync: this,
     );
 
     _fadeAnimation = Tween<double>(begin: 0.0, end: 1.0).animate(_controller);
-    
+
     _controller.forward();
     _navigateToLogin();
   }
@@ -49,6 +51,7 @@ class _SplashPageState extends State<SplashPage> with SingleTickerProviderStateM
 
   @override
   Widget build(BuildContext context) {
+    // final theme = Theme.of(context);
     debugPrint('SplashPage - Building widget');
     return Scaffold(
       body: Container(
@@ -69,9 +72,10 @@ class _SplashPageState extends State<SplashPage> with SingleTickerProviderStateM
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 SvgPicture.asset(
-                  'assets/imgs/svgs/logo_7.svg',
-                  width: 200,
-                  height: 200,
+                  AppSvg.logoWhite,
+                  package: AppSvg.packageName,
+                  width: 100,
+                  height: 100,
                 ),
                 const SizedBox(height: 24),
                 const CircularProgressIndicator(

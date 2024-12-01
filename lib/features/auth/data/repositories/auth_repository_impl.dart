@@ -32,10 +32,12 @@ class AuthRepositoryImpl implements AuthRepository {
       await localDataSource.cacheUser(user);
       return Right(user);
     } on firebase_auth.FirebaseAuthException catch (e) {
+      print('Firebase Auth Error Code: ${e.code}');
+      print('Firebase Auth Error Message: ${e.message}');
       String message;
       switch (e.code) {
         case 'user-not-found':
-          message = 'Usuário não encontrado';
+          message = 'Este e-mail ainda não foi cadastrado';
           break;
         case 'wrong-password':
           message = 'Senha incorreta';
@@ -44,7 +46,7 @@ class AuthRepositoryImpl implements AuthRepository {
           message = 'Email inválido';
           break;
         default:
-          message = 'Erro ao fazer login';
+          message = 'Erro ao fazer login: ${e.code}';
       }
       return Left(AuthFailure(message));
     } catch (e) {
