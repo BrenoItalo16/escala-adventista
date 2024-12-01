@@ -11,6 +11,8 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  design_system:
+    path: ./design_system
   firebase_core: ^2.32.0
   firebase_auth: ^4.20.0
   firebase_storage: ^11.6.0
@@ -46,15 +48,9 @@ flutter:
 
   generate: true
 
-  # To add assets to your application, add an assets section, like this:
   assets:
-    - assets/imgs/svgs/logo_7.svg
-
-  # An image asset can refer to one or more resolution-specific "variants", see
-  # https://flutter.dev/to/resolution-aware-images
-
-  # For details regarding adding assets from package dependencies, see
-  # https://flutter.dev/to/asset-from-package
+    - assets/images/
+    - assets/images/svg/
 
   # To add custom fonts to your application, add a fonts section here,
   # in this "flutter" section. Each entry in this list should have a
