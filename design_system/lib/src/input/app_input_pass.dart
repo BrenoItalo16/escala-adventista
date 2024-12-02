@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:uicons/uicons.dart';
 import '../../design_system.dart';
 
 class AppInputPass extends StatefulWidget {
@@ -79,7 +80,9 @@ class _AppInputPassState extends State<AppInputPass> {
                 widget.hasError ? AppColors.inputBgError : AppColors.inputBg,
             suffixIcon: IconButton(
               icon: Icon(
-                _obscureText ? Icons.visibility_off : Icons.visibility,
+                _obscureText
+                    ? UIcons.regularRounded.eye_crossed
+                    : UIcons.regularRounded.eye,
                 color: widget.hasError ? TxtColors.error : TxtColors.hint,
               ),
               onPressed: () {
