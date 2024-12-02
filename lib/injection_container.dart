@@ -10,6 +10,7 @@ import 'features/auth/domain/usecases/logout_usecase.dart';
 import 'features/auth/domain/usecases/get_current_user_usecase.dart';
 import 'features/auth/domain/usecases/signup_usecase.dart';
 import 'features/auth/presentation/bloc/auth_bloc.dart';
+import 'core/services/storage_service.dart';
 
 final sl = GetIt.instance;
 
@@ -39,6 +40,7 @@ Future<void> init() async {
   // External
   final sharedPreferences = await SharedPreferences.getInstance();
   sl.registerLazySingleton(() => sharedPreferences);
+  sl.registerLazySingleton(() => StorageService(sharedPreferences));
 
   // Firebase
   final firebaseAuth = FirebaseAuth.instance;

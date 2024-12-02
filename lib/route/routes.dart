@@ -1,9 +1,8 @@
 import 'package:escala_adventista/features/auth/presentation/pages/signup_page.dart';
+import 'package:escala_adventista/features/home/presentation/pages/home_page.dart';
 import 'package:escala_adventista/features/splash/presentation/pages/splash_page.dart';
 import 'package:escala_adventista/features/auth/presentation/pages/login_page.dart';
-import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 // GoRouter configuration
 final router = GoRouter(
@@ -23,11 +22,7 @@ final router = GoRouter(
     ),
     GoRoute(
       path: '/home',
-      builder: (context, state) => Scaffold(
-        appBar: AppBar(
-          title: Text(AppLocalizations.of(context)!.title),
-        ),
-      ),
+      builder: (context, state) => const HomePage(),
     ),
   ],
 );
