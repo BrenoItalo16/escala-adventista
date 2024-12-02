@@ -1,3 +1,4 @@
+import 'package:escala_adventista/features/auth/presentation/pages/signup_page.dart';
 import 'package:escala_adventista/features/splash/presentation/pages/splash_page.dart';
 import 'package:escala_adventista/features/auth/presentation/pages/login_page.dart';
 import 'package:flutter/material.dart';
@@ -15,6 +16,10 @@ final router = GoRouter(
     GoRoute(
       path: '/login',
       builder: (context, state) => const LoginPage(),
+    ),
+    GoRoute(
+      path: '/signup',
+      builder: (context, state) => const SignupPage(),
     ),
     GoRoute(
       path: '/home',

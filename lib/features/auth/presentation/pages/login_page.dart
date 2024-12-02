@@ -1,8 +1,9 @@
 import 'package:design_system/design_system.dart';
+import 'package:escala_adventista/route/app_routes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import '../bloc/auth_bloc.dart';
-import './signup_page.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -67,7 +68,7 @@ class _LoginPageState extends State<LoginPage> {
       body: BlocListener<AuthBloc, AuthState>(
         listener: (context, state) {
           if (state is AuthError) {
-            print('Auth Error Message: ${state.message}');
+            debugPrint('Auth Error Message: ${state.message}');
             setState(() {
               _hasEmailError = true;
               _emailErrorMessage = 'Este e-mail ainda não foi cadastrado';
@@ -170,16 +171,24 @@ class _LoginPageState extends State<LoginPage> {
                           const SizedBox(height: 16),
                           TextButton(
                             onPressed: () {
-                              Navigator.of(context).push(
-                                MaterialPageRoute(
-                                  builder: (context) => const SignupPage(),
-                                ),
-                              );
+                              context.push(AppRoutes.signup);
                             },
-                            child: Text(
-                              'Não possui uma conta? Cadastre-se',
-                              style: font.bodyM14Regular.copyWith(
-                                color: Colors.grey,
+                            child: RichText(
+                              text: TextSpan(
+                                children: [
+                                  TextSpan(
+                                    text: 'Não possui uma conta? ',
+                                    style: font.bodyL16Regular.copyWith(
+                                      color: TxtColors.hint,
+                                    ),
+                                  ),
+                                  TextSpan(
+                                    text: 'Cadastre-se',
+                                    style: font.bodyL16Regular.copyWith(
+                                      color: AppColors.primary,
+                                    ),
+                                  ),
+                                ],
                               ),
                             ),
                           ),

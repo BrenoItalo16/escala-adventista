@@ -1,6 +1,7 @@
 import 'package:design_system/design_system.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import '../bloc/auth_bloc.dart';
 
 class SignupPage extends StatefulWidget {
@@ -292,12 +293,23 @@ class _SignupPageState extends State<SignupPage> {
                   const SizedBox(height: 16),
                   TextButton(
                     onPressed: () {
-                      Navigator.pop(context);
+                      context.go('/login');
                     },
-                    child: Text(
-                      'Já tem uma conta? Faça login',
-                      style: font.bodyM14Regular.copyWith(
-                        color: Colors.grey,
+                    child: RichText(
+                      text: TextSpan(
+                        children: [
+                          TextSpan(
+                            text: 'Já tem uma conta? ',
+                            style: font.bodyL16Regular.copyWith(
+                              color: TxtColors.hint,
+                            ),
+                          ),
+                          TextSpan(
+                            text: 'Entrar',
+                            style: font.bodyL16Regular
+                                .copyWith(color: AppColors.primary),
+                          ),
+                        ],
                       ),
                     ),
                   ),
