@@ -3,6 +3,8 @@ import 'package:escala_adventista/route/app_routes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:escala_adventista/core/services/storage_service.dart';
+import 'package:get_it/get_it.dart';
 import '../bloc/auth_bloc.dart';
 
 class LoginPage extends StatefulWidget {
@@ -84,12 +86,14 @@ class _LoginPageState extends State<LoginPage> {
               _hasEmailError = false;
               _emailErrorMessage = null;
             });
+            GetIt.I<StorageService>().setAuthState(true);
             ScaffoldMessenger.of(context).showSnackBar(
               const SnackBar(
                 content: Text('Login efetuado com sucesso'),
                 backgroundColor: Colors.green,
               ),
             );
+            context.go('/home');
           }
         },
         child: Center(
