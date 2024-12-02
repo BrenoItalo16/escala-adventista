@@ -1,8 +1,8 @@
 import 'package:dartz/dartz.dart';
 import 'package:firebase_auth/firebase_auth.dart' as firebase_auth;
-import 'package:firebase_database/firebase_database.dart';
 import '../../../../core/error/failures.dart';
 import '../../domain/repositories/auth_repository.dart';
+import 'package:firebase_database/firebase_database.dart';
 import '../models/user_model.dart';
 
 class AuthRepositoryImpl implements AuthRepository {
