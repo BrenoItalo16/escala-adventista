@@ -111,8 +111,6 @@ class _LoginPageState extends State<LoginPage> {
                     child: AppLogo(),
                   ),
                   const SizedBox(height: 48),
-
-                  //! Início do input de e-mail
                   AppInputEmail(
                     controller: _emailController,
                     errorMessage: _emailErrorMessage,
@@ -130,7 +128,6 @@ class _LoginPageState extends State<LoginPage> {
                       return null;
                     },
                   ),
-
                   const SizedBox(height: 24),
                   AppInputPass(
                     controller: _passwordController,
