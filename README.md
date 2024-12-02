@@ -137,7 +137,7 @@ Este projeto está sob a licença MIT. Veja o arquivo [LICENSE](LICENSE) para ma
 
 ## Contato
 
-Breno Ítalo - [@brenoitalo16](https://instagram.com/brenoitalo16)
+Breno Italo - [@brenoitalo16](https://instagram.com/brenoitalo16)
 
 - Email: [contato@brenoitalo.com](mailto:contato@brenoitalo.com)
 - GitHub: [brenoitalo16](https://github.com/brenoitalo16)
