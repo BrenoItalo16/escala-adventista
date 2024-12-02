@@ -5,27 +5,30 @@ import '../../../../core/usecases/usecase.dart';
 import '../entities/user.dart';
 import '../repositories/auth_repository.dart';
 
-class LoginParams extends Equatable {
+class SignupParams extends Equatable {
+  final String name;
   final String email;
   final String password;
 
-  const LoginParams({
+  const SignupParams({
+    required this.name,
     required this.email,
     required this.password,
   });
 
   @override
-  List<Object?> get props => [email, password];
+  List<Object?> get props => [name, email, password];
 }
 
-class LoginUseCase implements UseCase<User, LoginParams> {
+class SignupUseCase implements UseCase<User, SignupParams> {
   final AuthRepository repository;
 
-  LoginUseCase(this.repository);
+  SignupUseCase(this.repository);
 
   @override
-  Future<Either<AuthFailure, User>> call(LoginParams params) {
-    return repository.login(
+  Future<Either<AuthFailure, User>> call(SignupParams params) {
+    return repository.signup(
+      name: params.name,
       email: params.email,
       password: params.password,
     );

@@ -1,32 +1,51 @@
-import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:escala_adventista/core/usecases/usecase.dart';
 import '../../domain/entities/user.dart';
 import '../../domain/usecases/login_usecase.dart';
 import '../../domain/usecases/logout_usecase.dart';
+import '../../domain/usecases/signup_usecase.dart';
 import '../../domain/usecases/get_current_user_usecase.dart';
-import '../../../../core/usecases/usecase.dart';
 
 // Events
 abstract class AuthEvent extends Equatable {
   const AuthEvent();
 
   @override
-  List<Object?> get props => [];
+  List<Object> get props => [];
 }
 
-class LoginEvent extends AuthEvent {
+class LoginSubmitted extends AuthEvent {
   final String email;
   final String password;
 
-  const LoginEvent({required this.email, required this.password});
+  const LoginSubmitted({
+    required this.email,
+    required this.password,
+  });
 
   @override
   List<Object> get props => [email, password];
 }
 
-class LogoutEvent extends AuthEvent {}
+class SignupSubmitted extends AuthEvent {
+  final String name;
+  final String email;
+  final String password;
 
-class CheckAuthStatusEvent extends AuthEvent {}
+  const SignupSubmitted({
+    required this.name,
+    required this.email,
+    required this.password,
+  });
+
+  @override
+  List<Object> get props => [name, email, password];
+}
+
+class LogoutRequested extends AuthEvent {}
+
+class AuthenticationStatusRequested extends AuthEvent {}
 
 // States
 abstract class AuthState extends Equatable {
@@ -40,16 +59,16 @@ class AuthInitial extends AuthState {}
 
 class AuthLoading extends AuthState {}
 
-class Authenticated extends AuthState {
+class AuthAuthenticated extends AuthState {
   final User user;
 
-  const Authenticated(this.user);
+  const AuthAuthenticated(this.user);
 
   @override
-  List<Object> get props => [user];
+  List<Object?> get props => [user];
 }
 
-class Unauthenticated extends AuthState {}
+class AuthUnauthenticated extends AuthState {}
 
 class AuthError extends AuthState {
   final String message;
@@ -57,56 +76,99 @@ class AuthError extends AuthState {
   const AuthError(this.message);
 
   @override
-  List<Object> get props => [message];
+  List<Object?> get props => [message];
 }
 
 // BLoC
 class AuthBloc extends Bloc<AuthEvent, AuthState> {
-  final LoginUseCase loginUseCase;
-  final LogoutUseCase logoutUseCase;
-  final GetCurrentUserUseCase getCurrentUserUseCase;
+  final LoginUseCase _loginUseCase;
+  final LogoutUseCase _logoutUseCase;
+  final SignupUseCase _signupUseCase;
+  final GetCurrentUserUseCase _getCurrentUserUseCase;
 
   AuthBloc({
-    required this.loginUseCase,
-    required this.logoutUseCase,
-    required this.getCurrentUserUseCase,
-  }) : super(AuthInitial()) {
-    on<LoginEvent>(_onLogin);
-    on<LogoutEvent>(_onLogout);
-    on<CheckAuthStatusEvent>(_onCheckAuthStatus);
-    add(CheckAuthStatusEvent());
+    required LoginUseCase loginUseCase,
+    required LogoutUseCase logoutUseCase,
+    required SignupUseCase signupUseCase,
+    required GetCurrentUserUseCase getCurrentUserUseCase,
+  })  : _loginUseCase = loginUseCase,
+        _logoutUseCase = logoutUseCase,
+        _signupUseCase = signupUseCase,
+        _getCurrentUserUseCase = getCurrentUserUseCase,
+        super(AuthInitial()) {
+    on<LoginSubmitted>(_onLoginSubmitted);
+    on<SignupSubmitted>(_onSignupSubmitted);
+    on<LogoutRequested>(_onLogoutRequested);
+    on<AuthenticationStatusRequested>(_onAuthenticationStatusRequested);
+    add(AuthenticationStatusRequested());
   }
 
-  Future<void> _onLogin(LoginEvent event, Emitter<AuthState> emit) async {
+  Future<void> _onLoginSubmitted(
+    LoginSubmitted event,
+    Emitter<AuthState> emit,
+  ) async {
     emit(AuthLoading());
-    final result = await loginUseCase(
-      LoginParams(email: event.email, password: event.password),
+
+    final result = await _loginUseCase(
+      LoginParams(
+        email: event.email,
+        password: event.password,
+      ),
     );
 
     result.fold(
       (failure) => emit(AuthError(failure.message)),
-      (user) => emit(Authenticated(user)),
+      (user) => emit(AuthAuthenticated(user)),
     );
   }
 
-  Future<void> _onLogout(LogoutEvent event, Emitter<AuthState> emit) async {
+  Future<void> _onSignupSubmitted(
+    SignupSubmitted event,
+    Emitter<AuthState> emit,
+  ) async {
     emit(AuthLoading());
-    final result = await logoutUseCase(const NoParams());
-    
+
+    final result = await _signupUseCase(
+      SignupParams(
+        name: event.name,
+        email: event.email,
+        password: event.password,
+      ),
+    );
+
     result.fold(
       (failure) => emit(AuthError(failure.message)),
-      (_) => emit(Unauthenticated()),
+      (user) => emit(AuthAuthenticated(user)),
     );
   }
 
-  Future<void> _onCheckAuthStatus(
-      CheckAuthStatusEvent event, Emitter<AuthState> emit) async {
+  Future<void> _onLogoutRequested(
+    LogoutRequested event,
+    Emitter<AuthState> emit,
+  ) async {
     emit(AuthLoading());
-    final result = await getCurrentUserUseCase(const NoParams());
-    
+
+    final result = await _logoutUseCase(const NoParams());
+
     result.fold(
       (failure) => emit(AuthError(failure.message)),
-      (user) => user != null ? emit(Authenticated(user)) : emit(Unauthenticated()),
+      (_) => emit(AuthUnauthenticated()),
+    );
+  }
+
+  Future<void> _onAuthenticationStatusRequested(
+    AuthenticationStatusRequested event,
+    Emitter<AuthState> emit,
+  ) async {
+    emit(AuthLoading());
+
+    final result = await _getCurrentUserUseCase(const NoParams());
+
+    result.fold(
+      (failure) => emit(AuthError(failure.message)),
+      (user) => emit(
+        user != null ? AuthAuthenticated(user) : AuthUnauthenticated(),
+      ),
     );
   }
 }

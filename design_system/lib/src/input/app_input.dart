@@ -1,33 +1,34 @@
 import 'package:flutter/material.dart';
 import '../../design_system.dart';
 
-class AppInputPass extends StatefulWidget {
+class AppInput extends StatefulWidget {
   final TextEditingController controller;
+  final String label;
   final String? errorMessage;
   final bool hasError;
   final Function(String?) onChanged;
   final String? Function(String?)? validator;
-  final String label;
-  final String? helperText;
+  final TextInputType keyboardType;
+  final String? hintText;
 
-  const AppInputPass({
+  const AppInput({
     super.key,
     required this.controller,
+    required this.label,
     this.errorMessage,
     this.hasError = false,
     required this.onChanged,
     this.validator,
-    this.label = 'Senha',
-    this.helperText,
+    this.keyboardType = TextInputType.text,
+    this.hintText,
   });
 
   @override
-  State<AppInputPass> createState() => _AppInputPassState();
+  State<AppInput> createState() => _AppInputState();
 }
 
-class _AppInputPassState extends State<AppInputPass> {
+class _AppInputState extends State<AppInput> {
   final _font = AppFont();
-  bool _obscureText = true;
 
   @override
   Widget build(BuildContext context) {
@@ -42,16 +43,11 @@ class _AppInputPassState extends State<AppInputPass> {
             color: widget.hasError ? TxtColors.error : TxtColors.primary,
           ),
           decoration: InputDecoration(
-            hintText: 'Insira sua ${widget.label.toLowerCase()}',
+            hintText: widget.hintText ?? 'Insira ${widget.label.toLowerCase()}',
             errorStyle: _font.labelM12Bold.copyWith(
               color: TxtColors.error,
             ),
             errorText: widget.errorMessage,
-            helperText: widget.helperText,
-            helperStyle: _font.labelM12Regular.copyWith(
-              color: TxtColors.hint,
-            ),
-            helperMaxLines: 10,
             hintStyle: _font.bodyL16Regular.copyWith(
               color: widget.hasError ? TxtColors.error : TxtColors.hint,
             ),
@@ -77,19 +73,8 @@ class _AppInputPassState extends State<AppInputPass> {
             filled: true,
             fillColor:
                 widget.hasError ? AppColors.inputBgError : AppColors.inputBg,
-            suffixIcon: IconButton(
-              icon: Icon(
-                _obscureText ? Icons.visibility_off : Icons.visibility,
-                color: widget.hasError ? TxtColors.error : TxtColors.hint,
-              ),
-              onPressed: () {
-                setState(() {
-                  _obscureText = !_obscureText;
-                });
-              },
-            ),
           ),
-          obscureText: _obscureText,
+          keyboardType: widget.keyboardType,
           onChanged: widget.onChanged,
           validator: widget.validator,
         ),

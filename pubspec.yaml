@@ -16,6 +16,7 @@ dependencies:
   firebase_core: ^2.32.0
   firebase_auth: ^4.20.0
   firebase_storage: ^11.6.0
+  firebase_database: ^10.4.0
   cloud_firestore: ^4.15.0
   go_router: ^14.3.0
   dio:

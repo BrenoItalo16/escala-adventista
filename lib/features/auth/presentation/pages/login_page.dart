@@ -2,6 +2,7 @@ import 'package:design_system/design_system.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../bloc/auth_bloc.dart';
+import './signup_page.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -77,7 +78,7 @@ class _LoginPageState extends State<LoginPage> {
                 backgroundColor: Colors.red,
               ),
             );
-          } else if (state is Authenticated) {
+          } else if (state is AuthAuthenticated) {
             setState(() {
               _hasEmailError = false;
               _emailErrorMessage = null;
@@ -143,25 +144,46 @@ class _LoginPageState extends State<LoginPage> {
                   const SizedBox(height: 24),
                   BlocBuilder<AuthBloc, AuthState>(
                     builder: (context, state) {
-                      return AppButton(
-                        text: 'Entrar',
-                        isLoading: state is AuthLoading,
-                        onPressed: _isFormValid
-                            ? () {
-                                if (_formKey.currentState!.validate()) {
-                                  setState(() {
-                                    _hasEmailError = false;
-                                    _emailErrorMessage = null;
-                                  });
-                                  context.read<AuthBloc>().add(
-                                        LoginEvent(
-                                          email: _emailController.text,
-                                          password: _passwordController.text,
-                                        ),
-                                      );
-                                }
-                              }
-                            : null,
+                      return Column(
+                        children: [
+                          AppButton(
+                            onPressed: state is AuthLoading || !_isFormValid
+                                ? null
+                                : () {
+                                    if (_formKey.currentState!.validate()) {
+                                      setState(() {
+                                        _hasEmailError = false;
+                                        _emailErrorMessage = null;
+                                      });
+                                      context.read<AuthBloc>().add(
+                                            LoginSubmitted(
+                                              email: _emailController.text,
+                                              password:
+                                                  _passwordController.text,
+                                            ),
+                                          );
+                                    }
+                                  },
+                            text: 'Entrar',
+                            isLoading: state is AuthLoading,
+                          ),
+                          const SizedBox(height: 16),
+                          TextButton(
+                            onPressed: () {
+                              Navigator.of(context).push(
+                                MaterialPageRoute(
+                                  builder: (context) => const SignupPage(),
+                                ),
+                              );
+                            },
+                            child: Text(
+                              'Não possui uma conta? Cadastre-se',
+                              style: font.bodyM14Regular.copyWith(
+                                color: Colors.grey,
+                              ),
+                            ),
+                          ),
+                        ],
                       );
                     },
                   ),
