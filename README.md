@@ -15,23 +15,23 @@
 
 Bem-vindo ao repositório **Escala Adventista**! Este projeto foi desenvolvido para facilitar o gerenciamento de escalas das atividades e serviços da igreja adventista. Através dele, líderes podem organizar e distribuir tarefas de forma eficiente e acessível para todos os membros envolvidos.
 
-## Índice
+## 📑 Índice
 
-- [Sobre o Projeto](#-sobre-o-projeto)
-- [Tecnologias](#-tecnologias)
-- [Começando](#-começando)
-- [Funcionalidades](#-funcionalidades)
-- [Arquitetura](#-arquitetura)
-- [Guia de Desenvolvimento](docs/FEATURE_GUIDE.md)
-- [Contribuindo](#-contribuindo)
-- [Licença](#-licença)
-- [Contato](#-contato)
+- [🎯 Sobre o Projeto](#-sobre-o-projeto)
+- [🚀 Tecnologias](#-tecnologias)
+- [🏁 Começando](#-começando)
+- [📱 Funcionalidades](#-funcionalidades)
+- [🏗 Arquitetura](#-arquitetura)
+- [📖 Guia de Desenvolvimento](docs/FEATURE_GUIDE.md)
+- [🤝 Contribuindo](#-contribuindo)
+- [📄 Licença](#-licença)
+- [📱 Contato](#-contato)
 
-## Sobre o Projeto
+## 🎯 Sobre o Projeto
 
 O **Escala Adventista** é uma ferramenta que auxilia na organização das atividades da igreja, distribuindo tarefas e gerenciando escalas de forma transparente e prática. Com uma interface intuitiva, permite que os usuários acessem facilmente suas responsabilidades e consultem as escalas das diversas funções semanais.
 
-### Principais Características
+### 🌟 Principais Características
 
 - Interface moderna e intuitiva
 - Gerenciamento eficiente de escalas
@@ -39,7 +39,7 @@ O **Escala Adventista** é uma ferramenta que auxilia na organização das ativi
 - Perfis personalizados
 - Relatórios e estatísticas
 
-## Tecnologias
+## 🚀 Tecnologias
 
 Este projeto foi desenvolvido com as seguintes tecnologias:
 
@@ -49,7 +49,7 @@ Este projeto foi desenvolvido com as seguintes tecnologias:
 - [BLoC Pattern](https://bloclibrary.dev/)
 - [Clean Architecture](https://blog.cleancoder.com/uncle-bob/2012/08/13/the-clean-architecture.html)
 
-## Começando
+## 🏁 Começando
 
 ### Pré-requisitos
 
@@ -86,7 +86,7 @@ Este projeto foi desenvolvido com as seguintes tecnologias:
    flutter run
    ```
 
-## Funcionalidades
+## 📱 Funcionalidades
 
 ### Implementadas
 - [ ] Autenticação de usuários
@@ -102,7 +102,7 @@ Este projeto foi desenvolvido com as seguintes tecnologias:
 - [ ] Exportação de dados
 - [ ] Temas personalizados
 
-## Arquitetura
+## 🏗 Arquitetura
 
 O projeto segue os princípios do Clean Architecture e SOLID, organizado em camadas:
 
@@ -119,7 +119,7 @@ lib/
 
 Para mais detalhes sobre a arquitetura e padrões de desenvolvimento, consulte nosso [Guia de Desenvolvimento](docs/FEATURE_GUIDE.md).
 
-## Contribuindo
+## 🤝 Contribuindo
 
 Contribuições são sempre bem-vindas! Para contribuir:
 
@@ -131,11 +131,11 @@ Contribuições são sempre bem-vindas! Para contribuir:
 
 Consulte [CONTRIBUTING.md](CONTRIBUTING.md) para mais detalhes.
 
-## Licença
+## 📄 Licença
 
 Este projeto está sob a licença MIT. Veja o arquivo [LICENSE](LICENSE) para mais detalhes.
 
-## Contato
+## 📱 Contato
 
 Breno Italo - [@brenoitalo16](https://instagram.com/brenoitalo16)
 
