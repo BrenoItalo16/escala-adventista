@@ -1,4 +1,4 @@
-<img src="https://raw.githubusercontent.com/BrenoItalo16/escala-adventista/refs/heads/main/assets/imgs/github_cover.png?token=GHSAT0AAAAAACVZLOE7K6O3IGIW6CGSITGMZZGOEKQ"/>
+<img src="https://i.imgur.com/bOjfoWK.png"/>
 <br>
 
 # Escala Adventista
