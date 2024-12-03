@@ -130,6 +130,12 @@ class AppFont {
       );
 
   // Headline Small 32
+  TextStyle get headlineS32XBold => GoogleFonts.barlow(
+        fontSize: 32,
+        fontWeight: FontWeight.w800,
+        color: TxtColors.primary,
+      );
+
   TextStyle get headlineS32Bold => GoogleFonts.nunito(
         fontSize: 32,
         fontWeight: FontWeight.w700,

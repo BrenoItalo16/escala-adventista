@@ -1,1 +1,29 @@
-{"flutter":{"platforms":{"android":{"default":{"projectId":"escala-adventista","appId":"1:386196356784:android:8162a6437e315b3be44575","fileOutput":"android/app/google-services.json"}},"dart":{"lib/firebase_options.dart":{"projectId":"escala-adventista","configurations":{"android":"1:386196356784:android:8162a6437e315b3be44575","web":"1:386196356784:web:2c16454dd81b0e46e44575"}}}}}}
+{
+  "firestore": {
+    "rules": "firestore.rules",
+    "indexes": "firestore.indexes.json"
+  },
+  "database": {
+    "rules": "database.rules.json"
+  },
+  "flutter": {
+    "platforms": {
+      "android": {
+        "default": {
+          "projectId": "escala-adventista",
+          "appId": "1:386196356784:android:8162a6437e315b3be44575",
+          "fileOutput": "android/app/google-services.json"
+        }
+      },
+      "dart": {
+        "lib/firebase_options.dart": {
+          "projectId": "escala-adventista",
+          "configurations": {
+            "android": "1:386196356784:android:8162a6437e315b3be44575",
+            "web": "1:386196356784:web:2c16454dd81b0e46e44575"
+          }
+        }
+      }
+    }
+  }
+}

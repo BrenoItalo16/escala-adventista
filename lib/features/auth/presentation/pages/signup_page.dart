@@ -2,6 +2,8 @@ import 'package:design_system/design_system.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:get_it/get_it.dart';
+import 'package:escala_adventista/core/services/storage_service.dart';
 import '../bloc/auth_bloc.dart';
 
 class SignupPage extends StatefulWidget {
@@ -183,12 +185,14 @@ class _SignupPageState extends State<SignupPage> {
               _hasEmailError = false;
               _emailErrorMessage = null;
             });
+            GetIt.I<StorageService>().setAuthState(true);
             ScaffoldMessenger.of(context).showSnackBar(
               const SnackBar(
                 content: Text('Conta criada com sucesso!'),
                 backgroundColor: Colors.green,
               ),
             );
+            context.go('/home');
           }
         },
         child: Center(

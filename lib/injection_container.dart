@@ -1,3 +1,7 @@
+import 'package:escala_adventista/features/home/data/repositories/favorite_songs_repository_impl.dart';
+import 'package:escala_adventista/features/home/domain/repositories/favorite_songs_repository.dart';
+import 'package:escala_adventista/features/home/presentation/bloc/song_search_bloc.dart';
+import 'package:escala_adventista/services/spotify_service.dart';
 import 'package:get_it/get_it.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -57,5 +61,24 @@ Future<void> init() async {
   // Data sources
   sl.registerLazySingleton<AuthLocalDataSource>(
     () => AuthLocalDataSourceImpl(sharedPreferences: sl()),
+  );
+
+  // Services
+  sl.registerLazySingleton(() => SpotifyService());
+
+  // Repositories
+  sl.registerLazySingleton<FavoriteSongsRepository>(
+    () => FavoriteSongsRepositoryImpl(
+      database: firebaseDatabase,
+      auth: firebaseAuth,
+    ),
+  );
+
+  // Blocs
+  sl.registerFactory(
+    () => SongSearchBloc(
+      spotifyService: sl(),
+      favoriteSongsRepository: sl(),
+    ),
   );
 }
