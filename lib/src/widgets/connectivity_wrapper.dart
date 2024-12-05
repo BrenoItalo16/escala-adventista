@@ -7,10 +7,10 @@ class ConnectivityWrapper extends StatelessWidget {
   final Widget? offlineWidget;
 
   const ConnectivityWrapper({
-    Key? key,
+    super.key,
     required this.child,
     this.offlineWidget,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -18,7 +18,7 @@ class ConnectivityWrapper extends StatelessWidget {
       stream: GetIt.I<ConnectivityService>().connectionStatus,
       builder: (context, snapshot) {
         final isConnected = snapshot.data ?? true;
-        
+
         if (!isConnected && offlineWidget != null) {
           return offlineWidget!;
         }
