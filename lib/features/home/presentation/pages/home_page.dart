@@ -1,10 +1,11 @@
 import 'package:design_system/design_system.dart';
 import 'package:escala_adventista/features/auth/presentation/bloc/auth_bloc.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:go_router/go_router.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:uicons/uicons.dart';
-import 'package:package_info_plus/package_info_plus.dart';
+import 'package:yaml/yaml.dart';
 import '../../../../injection_container.dart';
 import '../bloc/song_search_bloc.dart';
 import '../bloc/home_bloc.dart';
@@ -22,16 +23,22 @@ class _HomePageState extends State<HomePage> {
   @override
   void initState() {
     super.initState();
-    // Request authentication status check when page is initialized
     context.read<AuthBloc>().add(AuthenticationStatusRequested());
     _loadVersion();
   }
 
   Future<void> _loadVersion() async {
-    final packageInfo = await PackageInfo.fromPlatform();
-    setState(() {
-      _version = packageInfo.version;
-    });
+    try {
+      final yamlString = await rootBundle.loadString('pubspec.yaml');
+      final yaml = loadYaml(yamlString);
+      setState(() {
+        _version = yaml['version'].toString().split('+')[0];
+      });
+    } catch (e) {
+      setState(() {
+        _version = '1.0.0';
+      });
+    }
   }
 
   @override
