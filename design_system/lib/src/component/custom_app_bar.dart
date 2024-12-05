@@ -4,6 +4,7 @@ import 'package:design_system/design_system.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:escala_adventista/features/auth/presentation/bloc/auth_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:uicons/uicons.dart';
 
 class CustomAppBar extends StatefulWidget {
   final String? title;
@@ -32,26 +33,24 @@ class CustomAppBar extends StatefulWidget {
 class _CustomAppBarState extends State<CustomAppBar> {
   @override
   Widget build(BuildContext context) {
-    final font = AppFont();
-
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text('Olá', style: font.bodyL16XLight.copyWith(height: 1)),
+            Text('Olá', style: AppFont.bodyL16XLight.copyWith(height: 1)),
             BlocBuilder<AuthBloc, AuthState>(
               builder: (context, state) {
                 if (state is AuthAuthenticated) {
                   return Text(
                     state.user.name,
-                    style: font.headlineS32XBold.copyWith(height: 1),
+                    style: AppFont.headlineS32XBold.copyWith(height: 1),
                   );
                 }
                 return Text(
                   'Visitante',
-                  style: font.headlineS32XBold.copyWith(height: 1),
+                  style: AppFont.headlineS32XBold.copyWith(height: 1),
                 );
               },
             ),
@@ -61,6 +60,7 @@ class _CustomAppBarState extends State<CustomAppBar> {
           builder: (context, state) {
             final isLoading = state is AuthLoading;
             return AppIconButton(
+              icon: UIcons.regularRounded.man_head,
               onTap: isLoading
                   ? null
                   : () async {

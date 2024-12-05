@@ -96,14 +96,13 @@ class _SignupPageState extends State<SignupPage> {
   }
 
   Widget _buildPasswordHelper() {
-    final font = AppFont();
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         const SizedBox(height: 8),
         Text(
           'A senha deve conter:',
-          style: font.labelM12Regular.copyWith(color: TxtColors.hint),
+          style: AppFont.labelM12Regular.copyWith(color: TxtColors.hint),
         ),
         const SizedBox(height: 8),
         _buildPasswordRequirement(
@@ -131,7 +130,6 @@ class _SignupPageState extends State<SignupPage> {
   }
 
   Widget _buildPasswordRequirement(String text, bool isMet) {
-    final font = AppFont();
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 4),
       child: Row(
@@ -144,7 +142,7 @@ class _SignupPageState extends State<SignupPage> {
           const SizedBox(width: 8),
           Text(
             text,
-            style: font.labelM12Regular.copyWith(
+            style: AppFont.labelM12Regular.copyWith(
               color: isMet ? Colors.green : TxtColors.hint,
             ),
           ),
@@ -165,7 +163,6 @@ class _SignupPageState extends State<SignupPage> {
 
   @override
   Widget build(BuildContext context) {
-    final font = AppFont();
     return Scaffold(
       body: BlocListener<AuthBloc, AuthState>(
         listener: (context, state) {
@@ -206,7 +203,7 @@ class _SignupPageState extends State<SignupPage> {
                 children: [
                   Text(
                     'Criar Conta',
-                    style: font.titleM24XLight,
+                    style: AppFont.titleM24XLight,
                     textAlign: TextAlign.center,
                   ),
                   const SizedBox(height: 24),
@@ -304,13 +301,13 @@ class _SignupPageState extends State<SignupPage> {
                         children: [
                           TextSpan(
                             text: 'Já tem uma conta? ',
-                            style: font.bodyL16Regular.copyWith(
+                            style: AppFont.bodyL16Regular.copyWith(
                               color: TxtColors.hint,
                             ),
                           ),
                           TextSpan(
                             text: 'Entrar',
-                            style: font.bodyL16Regular
+                            style: AppFont.bodyL16Regular
                                 .copyWith(color: AppColors.primary),
                           ),
                         ],

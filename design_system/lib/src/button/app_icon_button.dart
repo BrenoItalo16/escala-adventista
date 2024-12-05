@@ -1,15 +1,26 @@
 import 'package:design_system/design_system.dart';
 import 'package:flutter/material.dart';
-import 'package:uicons/uicons.dart';
 
 class AppIconButton extends StatelessWidget {
   final VoidCallback? onTap;
   final bool isLoading;
+  final IconData? icon;
+  final double width;
+  final double height;
+  final double iconSize;
+  final double radious;
+  final bool showNotification;
 
   const AppIconButton({
     super.key,
-    this.onTap,
+    required this.onTap,
     this.isLoading = false,
+    required this.icon,
+    this.width = 48,
+    this.height = 48,
+    this.iconSize = 24,
+    this.radious = 12,
+    this.showNotification = false,
   });
   @override
   Widget build(BuildContext context) {
@@ -18,10 +29,10 @@ class AppIconButton extends StatelessWidget {
       child: Stack(
         children: [
           Container(
-            width: 48,
-            height: 48,
+            width: width,
+            height: height,
             decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(12),
+              borderRadius: BorderRadius.circular(radious),
               color: AppColors.selected,
             ),
             child: isLoading
@@ -36,9 +47,11 @@ class AppIconButton extends StatelessWidget {
                       ),
                     ),
                   )
-                : Icon(UIcons.regularRounded.man_head, color: AppColors.grey),
+                : icon == null
+                    ? null
+                    : Icon(icon, color: AppColors.grey, size: iconSize),
           ),
-          if (!isLoading)
+          if (!isLoading && showNotification)
             Positioned(
               top: 0,
               left: 0,

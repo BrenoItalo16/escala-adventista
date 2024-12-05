@@ -30,7 +30,7 @@ dependencies:
   dartz: ^0.10.1
   uicons: ^1.0.1
   connectivity_plus: ^5.0.2
-
+  package_info_plus: ^8.1.1
   flutter_localizations:
     sdk: flutter
 

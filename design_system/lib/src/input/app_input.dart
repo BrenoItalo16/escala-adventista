@@ -28,27 +28,25 @@ class AppInput extends StatefulWidget {
 }
 
 class _AppInputState extends State<AppInput> {
-  final _font = AppFont();
-
   @override
   Widget build(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(widget.label, style: _font.labelM12Bold),
+        Text(widget.label, style: AppFont.labelM12Bold),
         const SizedBox(height: 4),
         TextFormField(
           controller: widget.controller,
-          style: _font.bodyL16Regular.copyWith(
+          style: AppFont.bodyL16Regular.copyWith(
             color: widget.hasError ? TxtColors.error : TxtColors.primary,
           ),
           decoration: InputDecoration(
             hintText: widget.hintText ?? 'Insira ${widget.label.toLowerCase()}',
-            errorStyle: _font.labelM12Bold.copyWith(
+            errorStyle: AppFont.labelM12Bold.copyWith(
               color: TxtColors.error,
             ),
             errorText: widget.errorMessage,
-            hintStyle: _font.bodyL16Regular.copyWith(
+            hintStyle: AppFont.bodyL16Regular.copyWith(
               color: widget.hasError ? TxtColors.error : TxtColors.hint,
             ),
             border: OutlineInputBorder(

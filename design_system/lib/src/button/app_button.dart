@@ -23,15 +23,13 @@ class AppButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final font = AppFont();
-
     return SizedBox(
       width: width ?? double.infinity,
       height: height,
       child: ElevatedButton(
         onPressed: isLoading ? null : onPressed,
         style: ElevatedButton.styleFrom(
-          backgroundColor: onPressed != null 
+          backgroundColor: onPressed != null
               ? (backgroundColor ?? Colors.black)
               : AppColors.disabled,
           foregroundColor: Colors.white,
@@ -54,7 +52,7 @@ class AppButton extends StatelessWidget {
               )
             : Text(
                 text,
-                style: font.bodyL16Bold.copyWith(
+                style: AppFont.bodyL16Bold.copyWith(
                   color: Colors.white,
                 ),
               ),

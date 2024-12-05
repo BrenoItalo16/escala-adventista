@@ -27,7 +27,6 @@ class AppInputPass extends StatefulWidget {
 }
 
 class _AppInputPassState extends State<AppInputPass> {
-  final _font = AppFont();
   bool _obscureText = true;
 
   @override
@@ -35,25 +34,25 @@ class _AppInputPassState extends State<AppInputPass> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(widget.label, style: _font.labelM12Bold),
+        Text(widget.label, style: AppFont.labelM12Bold),
         const SizedBox(height: 4),
         TextFormField(
           controller: widget.controller,
-          style: _font.bodyL16Regular.copyWith(
+          style: AppFont.bodyL16Regular.copyWith(
             color: widget.hasError ? TxtColors.error : TxtColors.primary,
           ),
           decoration: InputDecoration(
             hintText: 'Insira sua ${widget.label.toLowerCase()}',
-            errorStyle: _font.labelM12Bold.copyWith(
+            errorStyle: AppFont.labelM12Bold.copyWith(
               color: TxtColors.error,
             ),
             errorText: widget.errorMessage,
             helperText: widget.helperText,
-            helperStyle: _font.labelM12Regular.copyWith(
+            helperStyle: AppFont.labelM12Regular.copyWith(
               color: TxtColors.hint,
             ),
             helperMaxLines: 10,
-            hintStyle: _font.bodyL16Regular.copyWith(
+            hintStyle: AppFont.bodyL16Regular.copyWith(
               color: widget.hasError ? TxtColors.error : TxtColors.hint,
             ),
             border: OutlineInputBorder(

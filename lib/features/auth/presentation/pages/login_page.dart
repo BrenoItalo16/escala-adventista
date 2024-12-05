@@ -65,7 +65,6 @@ class _LoginPageState extends State<LoginPage> {
 
   @override
   Widget build(BuildContext context) {
-    final font = AppFont();
     return Scaffold(
       body: BlocListener<AuthBloc, AuthState>(
         listener: (context, state) {
@@ -107,7 +106,7 @@ class _LoginPageState extends State<LoginPage> {
                 children: [
                   Text(
                     'Bem-vindo de volta!',
-                    style: font.titleM24XLight,
+                    style: AppFont.titleM24XLight,
                     textAlign: TextAlign.center,
                   ),
                   SizedBox(height: 24),
@@ -182,13 +181,13 @@ class _LoginPageState extends State<LoginPage> {
                                 children: [
                                   TextSpan(
                                     text: 'Não possui uma conta? ',
-                                    style: font.bodyL16Regular.copyWith(
+                                    style: AppFont.bodyL16Regular.copyWith(
                                       color: TxtColors.hint,
                                     ),
                                   ),
                                   TextSpan(
                                     text: 'Cadastre-se',
-                                    style: font.bodyL16Regular.copyWith(
+                                    style: AppFont.bodyL16Regular.copyWith(
                                       color: AppColors.primary,
                                     ),
                                   ),

@@ -22,27 +22,25 @@ class AppInputEmail extends StatefulWidget {
 }
 
 class _AppInputEmailState extends State<AppInputEmail> {
-  final _font = AppFont();
-
   @override
   Widget build(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text('E-mail', style: _font.labelM12Bold),
+        Text('E-mail', style: AppFont.labelM12Bold),
         const SizedBox(height: 4),
         TextFormField(
           controller: widget.controller,
-          style: _font.bodyL16Regular.copyWith(
+          style: AppFont.bodyL16Regular.copyWith(
             color: widget.hasError ? TxtColors.error : TxtColors.primary,
           ),
           decoration: InputDecoration(
             hintText: 'Insira seu e-mail',
-            errorStyle: _font.labelM12Bold.copyWith(
+            errorStyle: AppFont.labelM12Bold.copyWith(
               color: TxtColors.error,
             ),
             errorText: widget.errorMessage,
-            hintStyle: _font.bodyL16Regular.copyWith(
+            hintStyle: AppFont.bodyL16Regular.copyWith(
               color: widget.hasError ? TxtColors.error : TxtColors.hint,
             ),
             border: OutlineInputBorder(

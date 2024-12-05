@@ -16,7 +16,6 @@ class AppInputSearch extends StatefulWidget {
 }
 
 class _AppInputSearchState extends State<AppInputSearch> {
-  final _font = AppFont();
   final _searchController = TextEditingController();
   final _scrollController = ScrollController();
   bool _isLoadingMore = false;
@@ -89,17 +88,17 @@ class _AppInputSearchState extends State<AppInputSearch> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text('Buscar', style: _font.labelM12Bold),
+        Text('Buscar', style: AppFont.labelM12Bold),
         const SizedBox(height: 4),
         TextFormField(
           controller: _searchController,
-          style: _font.bodyL16Regular.copyWith(
+          style: AppFont.bodyL16Regular.copyWith(
             color: TxtColors.primary,
           ),
           decoration: InputDecoration(
             suffixIcon: Icon(UIcons.regularRounded.search),
             hintText: 'Buscar música ou artista',
-            hintStyle: _font.bodyL16Regular.copyWith(
+            hintStyle: AppFont.bodyL16Regular.copyWith(
               color: TxtColors.hint,
             ),
             border: OutlineInputBorder(
@@ -156,7 +155,7 @@ class _AppInputSearchState extends State<AppInputSearch> {
                       Text(
                         state.message,
                         textAlign: TextAlign.center,
-                        style: _font.bodyL16Regular,
+                        style: AppFont.bodyL16Regular,
                       ),
                       const SizedBox(height: 16),
                       ElevatedButton(
@@ -172,7 +171,7 @@ class _AppInputSearchState extends State<AppInputSearch> {
                   return Center(
                     child: Text(
                       'Nenhuma música encontrada',
-                      style: _font.bodyL16Regular,
+                      style: AppFont.bodyL16Regular,
                     ),
                   );
                 }
@@ -232,11 +231,11 @@ class _AppInputSearchState extends State<AppInputSearch> {
                       ),
                       title: Text(
                         song.name,
-                        style: _font.bodyL16Regular,
+                        style: AppFont.bodyL16Regular,
                       ),
                       subtitle: Text(
                         song.artist.name,
-                        style: _font.bodyM14Regular,
+                        style: AppFont.bodyM14Regular,
                       ),
                     );
                   },
