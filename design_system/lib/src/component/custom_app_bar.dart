@@ -1,7 +1,9 @@
+import 'package:escala_adventista/route/app_routes.dart';
 import 'package:flutter/material.dart';
 import 'package:design_system/design_system.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:escala_adventista/features/auth/presentation/bloc/auth_bloc.dart';
+import 'package:go_router/go_router.dart';
 
 class CustomAppBar extends StatefulWidget {
   final String? title;
@@ -55,7 +57,27 @@ class _CustomAppBarState extends State<CustomAppBar> {
             ),
           ],
         ),
-        const AppIconButton()
+        BlocBuilder<AuthBloc, AuthState>(
+          builder: (context, state) {
+            final isLoading = state is AuthLoading;
+            return AppIconButton(
+              onTap: isLoading
+                  ? null
+                  : () async {
+                      context.read<AuthBloc>().add(LogoutRequested());
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(
+                          content: Text('Saindo...'),
+                          duration: Duration(seconds: 2),
+                        ),
+                      );
+                      // Navega para login imediatamente
+                      context.go(AppRoutes.login);
+                    },
+              isLoading: isLoading,
+            );
+          },
+        )
       ],
     );
   }

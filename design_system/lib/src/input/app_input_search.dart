@@ -129,10 +129,10 @@ class _AppInputSearchState extends State<AppInputSearch> {
                 });
               } else if (state is SongSaved) {
                 ScaffoldMessenger.of(context).showSnackBar(
-                  SnackBar(
-                    content: const Text('Música favoritada com sucesso!'),
+                  const SnackBar(
+                    content: Text('Música favoritada com sucesso!'),
                     backgroundColor: Colors.green,
-                    duration: const Duration(seconds: 2),
+                    duration: Duration(seconds: 2),
                   ),
                 );
               } else if (state is SongSearchError) {

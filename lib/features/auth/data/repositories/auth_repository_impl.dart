@@ -1,19 +1,29 @@
 import 'package:dartz/dartz.dart';
 import 'package:firebase_auth/firebase_auth.dart' as firebase_auth;
+import 'dart:async';
+import 'package:flutter/foundation.dart';
 import '../../../../core/error/failures.dart';
+import '../../../../core/services/storage_service.dart';
 import '../../domain/repositories/auth_repository.dart';
 import 'package:firebase_database/firebase_database.dart';
 import '../models/user_model.dart';
+import '../datasources/auth_local_datasource.dart';
 
 class AuthRepositoryImpl implements AuthRepository {
   final firebase_auth.FirebaseAuth _firebaseAuth;
   final FirebaseDatabase _database;
+  final StorageService _storageService;
+  final AuthLocalDataSource _localDataSource;
 
   AuthRepositoryImpl({
     required firebase_auth.FirebaseAuth firebaseAuth,
     required FirebaseDatabase database,
+    required StorageService storageService,
+    required AuthLocalDataSource localDataSource,
   })  : _firebaseAuth = firebaseAuth,
-        _database = database;
+        _database = database,
+        _storageService = storageService,
+        _localDataSource = localDataSource;
 
   @override
   Future<Either<AuthFailure, UserModel>> signup({
@@ -109,19 +119,40 @@ class AuthRepositoryImpl implements AuthRepository {
   @override
   Future<Either<AuthFailure, void>> logout() async {
     try {
-      await _firebaseAuth.signOut();
+      // Primeiro limpa os dados locais para garantir que o usuário não fique preso
+      await _storageService.clearAuthState();
+      await _localDataSource.clearUser();
+
+      // Tenta fazer logout do Firebase com timeout
+      await Future.any([
+        _firebaseAuth.signOut(),
+        Future.delayed(const Duration(seconds: 5))
+            .then((_) => throw TimeoutException('Timeout ao fazer logout do Firebase')),
+      ]);
+
+      return const Right(null);
+    } on TimeoutException catch (e) {
+      // Se houver timeout, ainda retorna sucesso pois os dados locais foram limpos
+      debugPrint('Timeout durante logout: $e');
       return const Right(null);
     } catch (e) {
-      return Left(AuthFailure('Erro ao fazer logout: $e'));
+      debugPrint('Erro durante logout: $e');
+      // Mesmo com erro, os dados locais já foram limpos
+      return const Right(null);
     }
   }
 
   @override
   Future<Either<AuthFailure, UserModel?>> getCurrentUser() async {
     try {
-      final currentUser = _firebaseAuth.currentUser;
+      final isAuthenticated = _storageService.getAuthState() ?? false;
+      if (!isAuthenticated) {
+        return const Right(null);
+      }
 
+      final currentUser = _firebaseAuth.currentUser;
       if (currentUser == null) {
+        await _storageService.clearAuthState();
         return const Right(null);
       }
 
@@ -129,6 +160,7 @@ class AuthRepositoryImpl implements AuthRepository {
           await _database.ref().child('users/${currentUser.uid}').get();
 
       if (!userDoc.exists) {
+        await _storageService.clearAuthState();
         return Left(AuthFailure('Usuário não encontrado'));
       }
 

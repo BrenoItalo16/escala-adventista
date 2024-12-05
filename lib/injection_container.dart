@@ -50,17 +50,19 @@ Future<void> init() async {
   final firebaseAuth = FirebaseAuth.instance;
   final firebaseDatabase = FirebaseDatabase.instance;
 
+  // Data sources
+  sl.registerLazySingleton<AuthLocalDataSource>(
+    () => AuthLocalDataSourceImpl(sharedPreferences: sl()),
+  );
+
   // Repositories
   sl.registerLazySingleton<AuthRepository>(
     () => AuthRepositoryImpl(
       firebaseAuth: firebaseAuth,
       database: firebaseDatabase,
+      storageService: sl(),
+      localDataSource: sl(),
     ),
-  );
-
-  // Data sources
-  sl.registerLazySingleton<AuthLocalDataSource>(
-    () => AuthLocalDataSourceImpl(sharedPreferences: sl()),
   );
 
   // Services

@@ -1,22 +1,23 @@
 import 'package:design_system/design_system.dart';
 import 'package:flutter/material.dart';
 import 'package:uicons/uicons.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:escala_adventista/features/auth/presentation/bloc/auth_bloc.dart';
 
 class AppIconButton extends StatelessWidget {
-  const AppIconButton({super.key});
+  final VoidCallback? onTap;
+  final bool isLoading;
+
+  const AppIconButton({
+    super.key,
+    this.onTap,
+    this.isLoading = false,
+  });
 
   //TODO: boleano para notificação
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () {
-        context.read<AuthBloc>().add(
-              AuthenticationStatusRequested(),
-            );
-      },
+      onTap: isLoading ? null : onTap,
       child: Stack(
         children: [
           Container(
@@ -26,24 +27,36 @@ class AppIconButton extends StatelessWidget {
               borderRadius: BorderRadius.circular(12),
               color: AppColors.selected,
             ),
-            child: Icon(UIcons.regularRounded.man_head, color: AppColors.grey),
+            child: isLoading
+                ? const Center(
+                    child: SizedBox(
+                      width: 24,
+                      height: 24,
+                      child: CircularProgressIndicator(
+                        strokeWidth: 2,
+                        valueColor: AlwaysStoppedAnimation<Color>(AppColors.grey),
+                      ),
+                    ),
+                  )
+                : Icon(UIcons.regularRounded.man_head, color: AppColors.grey),
           ),
-          Positioned(
-            top: 0,
-            left: 0,
-            child: Container(
-              width: 16,
-              height: 16,
-              decoration: BoxDecoration(
-                shape: BoxShape.circle,
-                color: AppColors.primary,
-                border: Border.all(
-                  color: AppColors.background,
-                  width: 2,
+          if (!isLoading)
+            Positioned(
+              top: 0,
+              left: 0,
+              child: Container(
+                width: 16,
+                height: 16,
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  color: AppColors.primary,
+                  border: Border.all(
+                    color: AppColors.background,
+                    width: 2,
+                  ),
                 ),
               ),
             ),
-          ),
         ],
       ),
     );
