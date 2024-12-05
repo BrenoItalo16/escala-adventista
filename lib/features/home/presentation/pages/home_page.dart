@@ -5,6 +5,7 @@ import 'package:go_router/go_router.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../injection_container.dart';
 import '../bloc/song_search_bloc.dart';
+import '../bloc/home_bloc.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -25,7 +26,17 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
-        BlocProvider(create: (context) => sl<SongSearchBloc>()),
+        BlocProvider(
+          create: (context) => sl<SongSearchBloc>(),
+        ),
+        BlocProvider(
+          create: (context) {
+            final bloc = sl<HomeBloc>();
+            // Carrega os dados da home após a criação do bloc
+            bloc.add(const LoadHomeData());
+            return bloc;
+          },
+        ),
       ],
       child: BlocListener<AuthBloc, AuthState>(
         listener: (context, state) {

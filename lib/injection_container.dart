@@ -15,6 +15,10 @@ import 'features/auth/domain/usecases/get_current_user_usecase.dart';
 import 'features/auth/domain/usecases/signup_usecase.dart';
 import 'features/auth/presentation/bloc/auth_bloc.dart';
 import 'core/services/storage_service.dart';
+import 'features/home/presentation/bloc/home_bloc.dart';
+import 'features/home/domain/usecases/get_home_data_usecase.dart';
+import 'features/home/data/repositories/home_repository_impl.dart';
+import 'features/home/domain/repositories/home_repository.dart';
 
 final sl = GetIt.instance;
 
@@ -75,6 +79,11 @@ Future<void> init() async {
       auth: firebaseAuth,
     ),
   );
+
+  // Home
+  sl.registerFactory(() => HomeBloc(getHomeData: sl()));
+  sl.registerLazySingleton(() => GetHomeDataUseCase(sl()));
+  sl.registerLazySingleton<HomeRepository>(() => HomeRepositoryImpl());
 
   // Blocs
   sl.registerFactory(
