@@ -29,6 +29,7 @@ dependencies:
   equatable: ^2.0.5
   dartz: ^0.10.1
   uicons: ^1.0.1
+  connectivity_plus: ^5.0.2
 
   flutter_localizations:
     sdk: flutter
