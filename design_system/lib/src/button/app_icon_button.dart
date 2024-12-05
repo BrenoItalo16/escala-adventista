@@ -11,9 +11,6 @@ class AppIconButton extends StatelessWidget {
     this.onTap,
     this.isLoading = false,
   });
-
-  //TODO: boleano para notificação
-
   @override
   Widget build(BuildContext context) {
     return InkWell(
@@ -34,7 +31,8 @@ class AppIconButton extends StatelessWidget {
                       height: 24,
                       child: CircularProgressIndicator(
                         strokeWidth: 2,
-                        valueColor: AlwaysStoppedAnimation<Color>(AppColors.grey),
+                        valueColor:
+                            AlwaysStoppedAnimation<Color>(AppColors.grey),
                       ),
                     ),
                   )
