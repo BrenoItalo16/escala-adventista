@@ -1,12 +1,13 @@
 import 'dart:convert';
 import 'package:dio/dio.dart';
+import 'package:flutter/material.dart';
 import '../config/spotify_config.dart';
 
 class SpotifyService {
   final Dio _dio;
   String? _accessToken;
   DateTime? _tokenExpiration;
-  
+
   static final SpotifyService _instance = SpotifyService._internal();
 
   factory SpotifyService() {
@@ -22,7 +23,9 @@ class SpotifyService {
         ));
 
   Future<void> _getAccessToken() async {
-    if (_accessToken != null && _tokenExpiration != null && DateTime.now().isBefore(_tokenExpiration!)) {
+    if (_accessToken != null &&
+        _tokenExpiration != null &&
+        DateTime.now().isBefore(_tokenExpiration!)) {
       return;
     }
 
@@ -45,7 +48,7 @@ class SpotifyService {
     _tokenExpiration = DateTime.now().add(
       Duration(seconds: response.data['expires_in']),
     );
-    
+
     _dio.options.headers['Authorization'] = 'Bearer $_accessToken';
   }
 
@@ -53,7 +56,7 @@ class SpotifyService {
   Future<Map<String, dynamic>> searchSong(String artist, String song) async {
     try {
       await _getAccessToken();
-      
+
       final searchQuery = Uri.encodeComponent('$song $artist');
       final response = await _dio.get(
         '/search',
@@ -64,8 +67,8 @@ class SpotifyService {
         },
       );
 
-      if (response.data == null || 
-          response.data['tracks'] == null || 
+      if (response.data == null ||
+          response.data['tracks'] == null ||
           response.data['tracks']['items'].isEmpty) {
         return {
           'response': {
@@ -79,26 +82,29 @@ class SpotifyService {
       final formattedResponse = {
         'response': {
           'numFound': tracks.length,
-          'docs': tracks.map((track) => {
-            'id': track['id'],
-            'title': track['name'],
-            'band': track['artists'][0]['name'],
-            'band_id': track['artists'][0]['id'],
-            'band_url': track['artists'][0]['external_urls']['spotify'],
-            'url': track['external_urls']['spotify'],
-            'cover_url': track['album']['images'][0]['url'],
-            'lyrics': null,
-          }).toList(),
+          'docs': tracks
+              .map((track) => {
+                    'id': track['id'],
+                    'title': track['name'],
+                    'band': track['artists'][0]['name'],
+                    'band_id': track['artists'][0]['id'],
+                    'band_url': track['artists'][0]['external_urls']['spotify'],
+                    'url': track['external_urls']['spotify'],
+                    'cover_url': track['album']['images'][0]['url'],
+                    'lyrics': null,
+                  })
+              .toList(),
         }
       };
 
       return formattedResponse;
     } catch (e) {
-      print('Erro na busca do Spotify: $e');
+      debugPrint('Erro na busca do Spotify: $e');
       throw Exception('Erro ao buscar música: $e');
     }
   }
 
+  // ignore: unused_element
   Exception _handleError(DioException e) {
     if (e.response != null) {
       return Exception(
