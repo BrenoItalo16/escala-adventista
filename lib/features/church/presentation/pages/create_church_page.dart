@@ -1,3 +1,4 @@
+import 'package:escala_adventista/route/app_routes.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:design_system/design_system.dart';
@@ -56,21 +57,29 @@ class _CreateChurchPageState extends State<CreateChurchPage> {
 
       if (!mounted) return;
 
+      // Mostra mensagem de sucesso
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
           content: Text('Igreja criada com sucesso!'),
           backgroundColor: Colors.green,
+          duration: Duration(seconds: 2),
         ),
       );
-      
-      context.pop(true);
+
+      // Aguarda a mensagem ser exibida antes de redirecionar
+      await Future.delayed(const Duration(seconds: 1));
+      if (!mounted) return;
+
+      // Redireciona para a home
+      context.go(AppRoutes.home);
     } catch (e) {
       if (!mounted) return;
-      
+
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           content: Text('Erro ao criar igreja: ${e.toString()}'),
           backgroundColor: Colors.red,
+          duration: Duration(seconds: 3),
         ),
       );
     } finally {

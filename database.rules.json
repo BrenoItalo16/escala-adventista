@@ -11,6 +11,10 @@
         ".read": "$uid === auth.uid",
         ".write": "$uid === auth.uid"
       }
+    },
+    "churches": {
+      ".read": "auth != null",
+      ".write": "auth != null"
     }
   }
 }
