@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import '../../../../core/di/injection_container.dart' as di;
+import '../../../../route/app_routes.dart';
 import '../bloc/splash_bloc.dart';
 
 class SplashPage extends StatelessWidget {
@@ -24,9 +25,9 @@ class SplashView extends StatelessWidget {
     return BlocListener<SplashBloc, SplashState>(
       listener: (context, state) {
         if (state is SplashAuthenticated) {
-          context.goNamed('home');
+          context.go(AppRoutes.home);
         } else if (state is SplashUnauthenticated || state is SplashError) {
-          context.goNamed('login');
+          context.go(AppRoutes.login);
         }
       },
       child: Scaffold(

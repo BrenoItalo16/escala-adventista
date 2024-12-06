@@ -92,7 +92,7 @@ class _LoginPageState extends State<LoginPage> {
                 backgroundColor: Colors.green,
               ),
             );
-            context.go('/home');
+            context.go(AppRoutes.home);
           }
         },
         child: Center(

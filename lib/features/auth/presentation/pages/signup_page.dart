@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:get_it/get_it.dart';
 import 'package:escala_adventista/core/services/storage_service.dart';
+import 'package:escala_adventista/route/app_routes.dart';
 import '../bloc/auth_bloc.dart';
 
 class SignupPage extends StatefulWidget {
@@ -189,7 +190,7 @@ class _SignupPageState extends State<SignupPage> {
                 backgroundColor: Colors.green,
               ),
             );
-            context.go('/home');
+            context.go(AppRoutes.home);
           }
         },
         child: Center(

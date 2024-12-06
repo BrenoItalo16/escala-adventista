@@ -6,9 +6,11 @@ import 'package:connectivity_plus/connectivity_plus.dart';
 
 import 'core/network/network_info.dart';
 import 'core/services/storage_service.dart';
+import 'core/data/datasources/firebase_database_datasource.dart';
 
 import 'features/auth/di/auth_injection.dart' as auth_di;
 import 'features/splash/di/splash_injection.dart' as splash_di;
+import 'features/church/di/church_injection_container.dart' as church_di;
 
 // Global singleton instance
 final sl = GetIt.instance;
@@ -35,10 +37,20 @@ Future<void> init() async {
     () => StorageServiceImpl(prefs: sl()),
   );
 
+  // Register Firebase Database Datasource as singleton instance
+  final firebaseDataSource = FirebaseDatabaseDatasource.instance;
+  await firebaseDataSource.initialize();
+  sl.registerLazySingleton<IFirebaseDatabaseDatasource>(
+    () => firebaseDataSource,
+  );
+
   // Initialize Features in Order
   // Auth must be first as other features depend on it
   await auth_di.initAuthFeature();
   
   // Splash depends on Auth
   await splash_di.initSplashFeature();
+
+  // Initialize Church feature
+  await church_di.initChurch();
 }

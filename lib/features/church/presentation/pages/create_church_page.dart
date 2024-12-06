@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:design_system/design_system.dart';
 import 'package:get_it/get_it.dart';
+import 'package:go_router/go_router.dart';
 import '../../domain/entities/church.dart';
 import '../../domain/repositories/church_repository.dart';
 
@@ -53,18 +54,25 @@ class _CreateChurchPageState extends State<CreateChurchPage> {
 
       await _repository.createChurch(church);
 
-      if (mounted) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text('Igreja criada com sucesso!')),
-        );
-        Navigator.of(context).pop();
-      }
+      if (!mounted) return;
+
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('Igreja criada com sucesso!'),
+          backgroundColor: Colors.green,
+        ),
+      );
+      
+      context.pop(true);
     } catch (e) {
-      if (mounted) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Erro ao criar igreja: ${e.toString()}')),
-        );
-      }
+      if (!mounted) return;
+      
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('Erro ao criar igreja: ${e.toString()}'),
+          backgroundColor: Colors.red,
+        ),
+      );
     } finally {
       if (mounted) {
         setState(() => _isLoading = false);

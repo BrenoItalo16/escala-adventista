@@ -1,9 +1,11 @@
 import 'package:escala_adventista/features/auth/presentation/pages/signup_page.dart';
+import 'package:escala_adventista/features/church/presentation/pages/create_church_page.dart';
 import 'package:escala_adventista/features/home/presentation/pages/home_page.dart';
 import 'package:escala_adventista/features/splash/presentation/pages/splash_page.dart';
 import 'package:escala_adventista/features/auth/presentation/pages/login_page.dart';
 import 'package:escala_adventista/core/presentation/pages/error_404_page.dart';
 import 'package:go_router/go_router.dart';
+import 'app_routes.dart';
 
 // GoRouter configuration
 final router = GoRouter(
@@ -11,24 +13,29 @@ final router = GoRouter(
   errorBuilder: (context, state) => const Error404Page(),
   routes: [
     GoRoute(
-      path: '/',
+      path: AppRoutes.splash,
       name: 'splash',
       builder: (context, state) => const SplashPage(),
     ),
     GoRoute(
-      path: '/login',
+      path: AppRoutes.login,
       name: 'login',
       builder: (context, state) => const LoginPage(),
     ),
     GoRoute(
-      path: '/signup',
+      path: AppRoutes.signup,
       name: 'signup',
       builder: (context, state) => const SignupPage(),
     ),
     GoRoute(
-      path: '/home',
+      path: AppRoutes.home,
       name: 'home',
       builder: (context, state) => const HomePage(),
+    ),
+    GoRoute(
+      path: AppRoutes.createChurch,
+      name: 'create-church',
+      builder: (context, state) => const CreateChurchPage(),
     ),
   ],
 );
