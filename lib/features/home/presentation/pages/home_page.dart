@@ -4,11 +4,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:go_router/go_router.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:uicons/uicons.dart';
 import 'package:yaml/yaml.dart';
 import '../../../../injection_container.dart';
 import '../bloc/song_search_bloc.dart';
 import '../bloc/home_bloc.dart';
+import '../../../../features/church/presentation/pages/create_church_page.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -66,117 +66,52 @@ class _HomePageState extends State<HomePage> {
         child: Scaffold(
           backgroundColor: AppColors.background,
           body: SafeArea(
-            child: ConstrainedBox(
-              constraints: BoxConstraints(
-                minHeight: MediaQuery.of(context).size.height,
-                maxHeight: MediaQuery.of(context).size.height,
-              ),
-              child: Padding(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 16, vertical: 24),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    BlocBuilder<AuthBloc, AuthState>(
-                      builder: (context, state) {
-                        if (state is AuthAuthenticated) {
-                          return CustomAppBar(
-                            title: state.user.name,
-                          );
-                        }
-                        return const CustomAppBar();
-                      },
-                    ),
-                    const SizedBox(height: 24),
-                    Text(
-                      'Ainda não tem uma igreja?',
-                      style: AppFont.bodyL16Regular,
-                    ),
-                    const SizedBox(height: 12),
-                    Container(
-                      width: double.infinity,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(24),
-                        color: AppColors.inputBg,
-                      ),
-                      child: Padding(
-                        padding: const EdgeInsets.all(16),
-                        child: Column(
-                          mainAxisSize: MainAxisSize.min,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              'Crie uma igreja',
-                              style: AppFont.titleM24BoldBalow,
-                            ),
-                            SizedBox(height: 12),
-                            Row(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Icon(
-                                  UIcons.regularRounded.info,
-                                  size: 12,
-                                  color: TxtColors.support,
-                                ),
-                                SizedBox(width: 12),
-                                Expanded(
-                                  child: RichText(
-                                    text: TextSpan(
-                                      children: [
-                                        TextSpan(
-                                          text: 'Antes de criar uma igreja no ',
-                                          style: AppFont.bodyS12XLight,
-                                        ),
-                                        TextSpan(
-                                          text: 'Escala Adventista',
-                                          style: AppFont.bodyS12Bold,
-                                        ),
-                                        TextSpan(
-                                          text:
-                                              ', consulte a diretoria da sua congregação para confirmar se já existe uma igreja criada em nosso app.',
-                                          style: AppFont.bodyS12XLight,
-                                        ),
-                                      ],
-                                    ),
-                                    softWrap: true,
-                                    overflow: TextOverflow.visible,
-                                  ),
-                                ),
-                              ],
-                            ),
-                            const SizedBox(height: 12),
-                            Center(
-                              child: Padding(
-                                padding:
-                                    const EdgeInsets.symmetric(vertical: 24),
-                                child: AppIconButton(
-                                  width: 72,
-                                  height: 72,
-                                  radious: 16,
-                                  icon: UIcons.regularRounded.plus,
-                                  onTap: () {},
-                                ),
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 24),
+              child: SingleChildScrollView(
+                child: BlocBuilder<AuthBloc, AuthState>(
+                  builder: (context, state) {
+                    // if (state is AuthAuthenticated) {
+                    if (state is AuthUnauthenticated) {
+                      return CustomAppBar(
+                        title: 'Visitante',
+                      );
+                    }
+                    return Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        const CustomAppBar(),
+                        const SizedBox(height: 24),
+                        Text(
+                          'Ainda não tem uma igreja?',
+                          style: AppFont.bodyL16Regular,
+                        ),
+                        SizedBox(height: 12),
+                        AppSectionButton(
+                          onTap: () {
+                            Navigator.of(context).push(
+                              MaterialPageRoute(
+                                builder: (context) => const CreateChurchPage(),
                               ),
+                            );
+                          },
+                        ),
+                        SizedBox(height: 24),
+                        //!Corrigir erro de tela
+
+                        // AppInputSearch(),
+                        const SizedBox(height: 24),
+                        Center(
+                          child: Text(
+                            'Versão $_version',
+                            style: AppFont.bodyL16Regular.copyWith(
+                              color: TxtColors.support,
                             ),
-                          ],
+                          ),
                         ),
-                      ),
-                    ),
-                    const SizedBox(height: 24),
-                    //! Buscar Músicas
-                    Expanded(
-                      child: AppInputSearch(),
-                    ),
-                    const SizedBox(height: 24),
-                    Center(
-                      child: Text(
-                        'Versão $_version',
-                        style: AppFont.bodyL16Regular.copyWith(
-                          color: TxtColors.support,
-                        ),
-                      ),
-                    ),
-                  ],
+                      ],
+                    );
+                  },
                 ),
               ),
             ),

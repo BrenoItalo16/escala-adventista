@@ -2,7 +2,7 @@ import 'package:dartz/dartz.dart';
 import 'package:equatable/equatable.dart';
 import '../../../../core/error/failures.dart';
 import '../../../../core/usecases/usecase.dart';
-import '../entities/user.dart';
+import '../entities/user_entity.dart';
 import '../repositories/auth_repository.dart';
 
 class SignupParams extends Equatable {
@@ -20,13 +20,13 @@ class SignupParams extends Equatable {
   List<Object?> get props => [name, email, password];
 }
 
-class SignupUseCase implements UseCase<User, SignupParams> {
+class SignupUseCase implements UseCase<UserEntity, SignupParams> {
   final AuthRepository repository;
 
   SignupUseCase(this.repository);
 
   @override
-  Future<Either<AuthFailure, User>> call(SignupParams params) {
+  Future<Either<AuthFailure, UserEntity>> call(SignupParams params) {
     return repository.signup(
       name: params.name,
       email: params.email,

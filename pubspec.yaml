@@ -11,6 +11,7 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  flutter_dotenv: ^5.1.0
   design_system:
     path: ./design_system
   firebase_core: ^2.32.0
@@ -64,6 +65,7 @@ flutter:
   assets:
     - assets/images/
     - assets/images/svg/
+    - .env
 
   # To add custom fonts to your application, add a fonts section here,
   # in this "flutter" section. Each entry in this list should have a

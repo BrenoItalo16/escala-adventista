@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import '../../design_system.dart';
 
 class AppInput extends StatefulWidget {
@@ -10,6 +11,7 @@ class AppInput extends StatefulWidget {
   final String? Function(String?)? validator;
   final TextInputType keyboardType;
   final String? hintText;
+  final List<TextInputFormatter>? inputFormatters;
 
   const AppInput({
     super.key,
@@ -21,6 +23,7 @@ class AppInput extends StatefulWidget {
     this.validator,
     this.keyboardType = TextInputType.text,
     this.hintText,
+    this.inputFormatters,
   });
 
   @override
@@ -75,6 +78,7 @@ class _AppInputState extends State<AppInput> {
           keyboardType: widget.keyboardType,
           onChanged: widget.onChanged,
           validator: widget.validator,
+          inputFormatters: widget.inputFormatters,
         ),
       ],
     );

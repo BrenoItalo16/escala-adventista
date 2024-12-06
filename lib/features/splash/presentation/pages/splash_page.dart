@@ -1,43 +1,48 @@
-import 'package:design_system/design_system.dart';
-import 'package:escala_adventista/core/services/storage_service.dart';
 import 'package:flutter/material.dart';
-import 'package:get_it/get_it.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import '../../../../core/di/injection_container.dart' as di;
+import '../bloc/splash_bloc.dart';
 
-class SplashPage extends StatefulWidget {
+class SplashPage extends StatelessWidget {
   const SplashPage({super.key});
 
   @override
-  State<SplashPage> createState() => _SplashPageState();
+  Widget build(BuildContext context) {
+    return BlocProvider(
+      create: (context) => di.sl<SplashBloc>()..add(CheckAuthenticationStatus()),
+      child: const SplashView(),
+    );
+  }
 }
 
-class _SplashPageState extends State<SplashPage> {
-  @override
-  void initState() {
-    super.initState();
-    _checkAuthAndNavigate();
-  }
-
-  Future<void> _checkAuthAndNavigate() async {
-    await Future.delayed(const Duration(seconds: 2));
-    if (!mounted) return;
-
-    final isAuthenticated = GetIt.I<StorageService>().getAuthState() ?? false;
-    if (isAuthenticated) {
-      context.go('/home');
-    } else {
-      context.go('/login');
-    }
-  }
+class SplashView extends StatelessWidget {
+  const SplashView({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Center(
-        child: SizedBox(
-          width: 128,
-          height: 157,
-          child: AppLogo(),
+    return BlocListener<SplashBloc, SplashState>(
+      listener: (context, state) {
+        if (state is SplashAuthenticated) {
+          context.goNamed('home');
+        } else if (state is SplashUnauthenticated || state is SplashError) {
+          context.goNamed('login');
+        }
+      },
+      child: Scaffold(
+        backgroundColor: Theme.of(context).colorScheme.surface,
+        body: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              const CircularProgressIndicator(),
+              const SizedBox(height: 24),
+              Text(
+                'Carregando...',
+                style: Theme.of(context).textTheme.titleMedium,
+              ),
+            ],
+          ),
         ),
       ),
     );

@@ -22,3 +22,8 @@ class ServerFailure extends Failure {
   const ServerFailure([String message = 'Erro no servidor'])
       : super(message: message);
 }
+
+class NetworkFailure extends Failure {
+  const NetworkFailure([String message = 'Erro de conexão'])
+      : super(message: message);
+}
