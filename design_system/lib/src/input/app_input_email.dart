@@ -22,6 +22,20 @@ class AppInputEmail extends StatefulWidget {
 }
 
 class _AppInputEmailState extends State<AppInputEmail> {
+  late final FocusNode _focusNode;
+
+  @override
+  void initState() {
+    super.initState();
+    _focusNode = FocusNode();
+  }
+
+  @override
+  void dispose() {
+    _focusNode.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -31,6 +45,7 @@ class _AppInputEmailState extends State<AppInputEmail> {
         const SizedBox(height: 4),
         TextFormField(
           controller: widget.controller,
+          focusNode: _focusNode,
           style: AppFont.bodyL16Regular.copyWith(
             color: widget.hasError ? TxtColors.error : TxtColors.primary,
           ),
