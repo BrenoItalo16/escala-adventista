@@ -1,3 +1,4 @@
+import 'package:design_system/design_system.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -11,7 +12,8 @@ class SplashPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => di.sl<SplashBloc>()..add(CheckAuthenticationStatus()),
+      create: (context) =>
+          di.sl<SplashBloc>()..add(CheckAuthenticationStatus()),
       child: const SplashView(),
     );
   }
@@ -36,12 +38,16 @@ class SplashView extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              const CircularProgressIndicator(),
-              const SizedBox(height: 24),
-              Text(
-                'Carregando...',
-                style: Theme.of(context).textTheme.titleMedium,
+              Image.asset(
+                'assets/images/logo_with_text.png',
+                package: AppImage.packageName,
+                width: 200,
+                height: 200,
               ),
+              Material(
+                child: CircularProgressIndicator(),
+              ),
+              const SizedBox(height: 24),
             ],
           ),
         ),
