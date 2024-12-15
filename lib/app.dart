@@ -17,7 +17,10 @@ class App extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         title: 'Escala Adventista',
         theme: ThemeData(
-          colorScheme: ColorScheme.fromSeed(seedColor: AppColors.primary),
+          colorScheme: ColorScheme.fromSeed(
+            seedColor: AppColors.primary,
+            brightness: Brightness.light,
+          ),
           useMaterial3: true,
         ),
         localizationsDelegates: AppLocalizations.localizationsDelegates,

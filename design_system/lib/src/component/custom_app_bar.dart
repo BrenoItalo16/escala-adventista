@@ -36,31 +36,36 @@ class _CustomAppBarState extends State<CustomAppBar> {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text('Olá', style: AppFont.bodyL16XLight.copyWith(height: 1)),
-            BlocBuilder<AuthBloc, AuthState>(
-              builder: (context, state) {
-                if (state is AuthAuthenticated) {
-                  return Text(
-                    state.user.name,
-                    style: AppFont.headlineS32XBold.copyWith(height: 1),
-                  );
-                }
-                return Text(
-                  'Visitante',
-                  style: AppFont.headlineS32XBold.copyWith(height: 1),
-                );
-              },
-            ),
-          ],
+        Image.asset(
+          AppImage.logoWithTextHorizontal,
+          package: AppImage.packageName,
+          height: 40,
         ),
+        // Column(
+        //   crossAxisAlignment: CrossAxisAlignment.start,
+        //   children: [
+        //     Text('Olá', style: AppFont.bodyL16XLight.copyWith(height: 1)),
+        //     BlocBuilder<AuthBloc, AuthState>(
+        //       builder: (context, state) {
+        //         if (state is AuthAuthenticated) {
+        //           return Text(
+        //             state.user.name,
+        //             style: AppFont.headlineS32XBold.copyWith(height: 1),
+        //           );
+        //         }
+        //         return Text(
+        //           'Visitante',
+        //           style: AppFont.headlineS32XBold.copyWith(height: 1),
+        //         );
+        //       },
+        //     ),
+        //   ],
+        // ),
         BlocBuilder<AuthBloc, AuthState>(
           builder: (context, state) {
             final isLoading = state is AuthLoading;
             return AppIconButton(
-              icon: UIcons.regularRounded.man_head,
+              icon: UIcons.regularRounded.sign_out_alt,
               onTap: isLoading
                   ? null
                   : () async {

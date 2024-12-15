@@ -176,7 +176,7 @@ class _CreateChurchPageState extends State<CreateChurchPage> {
                 color: Theme.of(context).scaffoldBackgroundColor,
                 boxShadow: [
                   BoxShadow(
-                    color: Colors.black.withOpacity(0.1),
+                    color: Colors.black.withValues(),
                     blurRadius: 4,
                     offset: const Offset(0, -2),
                   ),
