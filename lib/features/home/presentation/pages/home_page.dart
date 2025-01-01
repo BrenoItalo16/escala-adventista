@@ -29,7 +29,8 @@ class _HomePageState extends State<HomePage> {
 
   Future<void> _loadVersion() async {
     try {
-      final yamlString = await rootBundle.loadString('pubspec.yaml');
+      // final yamlString = await rootBundle.loadString('pubspec.yaml');
+      final yamlString = await rootBundle.loadString('../pubspec.yaml');
       final yaml = loadYaml(yamlString);
       setState(() {
         _version = yaml['version'].toString().split('+')[0];
